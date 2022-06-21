@@ -47,6 +47,40 @@ newRegister,
     })
     
   }
- 
+  const updateRegister = async (req, res) => {
+    const { id } = req.params;
+    const { exitTime } = req.body;
+  
+    const register = await Register.findOne({ where: { id } });
+  
+    if (!register) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'User not found',
+      });
+    }
+  
+    await register.update({ exitTime });
+  
+    res.status(204).json({ status: 'success' });
+  };
+  const deleteRegister = async (req, res) => {
+    const { id } = req.params;
+  
+    const register = await Register.findOne({ where: { id } });
+  
+    if (!register) {
+      return res.status(404).json({
+        status: 'error',
+        message: 'User not found',
+      });
+    }
+  
+    // await user.destroy();
+    await register.update({ status: 'deleted' });
+  
+    res.status(204).json({ status: 'success' });
+  };
+  
 
-module.exports = { getAllRegister,createRegister,getRegisterById };
+module.exports = { getAllRegister,createRegister,getRegisterById,updateRegister,deleteRegister };
