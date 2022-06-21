@@ -1,13 +1,24 @@
-const http =require('http')
+const express = require('express');
+
+const { registerRouter } = require('./routes/registration.routes');
+
 const {db}=require('./utils/database.utils')
+//iniciar express app
+const app= express()
 
 
-const server =http.createServer((req,res)=>{
-    console.log("hello")
+app.use(express.json())
 
-    
+app.use('/registration',registerRouter)
 
+db.authenticate()
+	.then(() => console.log('Db authenticated'))
+	.catch(err => console.log(err));
 
-})
+db.sync()
+	.then(() => console.log('Db synced'))
+	.catch(err => console.log(err));
 
-server.listen(4000)
+app.listen(3000, () => {
+	console.log('Express app running!!');
+});

@@ -6,15 +6,9 @@ const db = new Sequelize({
 	username: 'postgres',
 	password: 'pass1234',
 	port: 5432,
-	database: 'register',
+	database: 'registration',
+	logging:false
 })
-db.authenticate()
-.then(()=>console.log("base de datos autentiada"))
-.catch (err=>console.log(err))
-
-db.sync()
-.then(()=>console.log("base de datos creada"))
-.catch (err=>console.log(err))
 
 
 module.exports={db,DataTypes}

@@ -1,33 +1,52 @@
-const { DATE } = require("sequelize");
+
 const { Register } = require("../models/regitration.model");
-
-registration[
-     {
-        id:"",
-        entranceTime:DATE,
-        exitTime:DATE,
-        status:"working"
-     },
-     {
-        id:"",
-        entranceTime:DATE,
-        exitTime:DATE,
-        status:"working"
-     },
-    ];
-
 
 
 
 const getAllRegister = async (req, res) => {
   try {
     const registers = await Register.findAll();
+    
     res.status(200).json({
-      status: "working",
+      status: "success",
       registers,
     });
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log(err);
   }
 };
-module.exports = { getAllRegister };
+
+const createRegister= async (req,res)=>{
+
+  try { 
+    const {entranceTime} = req.body;
+    const newRegister =await Register.create({
+    entranceTime:new Date(),
+    
+  })
+  res.status(201).json({
+status:'success',
+newRegister,
+  })  
+  } catch (err) {
+    console.log(err)
+  }
+};
+ const getRegisterById= async(req,res)=>{
+  const{id}=req.params;
+  const register= await Register.findOne({where:{id}})
+  if (!register) {
+    return res.status(404).json({
+      status:'error',
+       message:'Register not found',
+    })
+  }
+    res.status(200).json({
+      status:'success',
+      register,
+    })
+    
+  }
+ 
+
+module.exports = { getAllRegister,createRegister,getRegisterById };

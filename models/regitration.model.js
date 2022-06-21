@@ -1,8 +1,9 @@
-const { DATE } = require('sequelize');
+
 const {db,DataTypes}=require('../utils/database.utils')
 
 
-const Register=db.define(registration, {
+  
+const Register=db.define('registration', {
 
 id:{
     primaryKey: true,
@@ -11,11 +12,11 @@ id:{
 		allowNull: false,
          },
 entranceTime:{
-			type:DATE,
+			type:DataTypes.DATE,
 			allowNull:false,
           },
 exitTime:{
-			type:DATE,
+	        type:DataTypes.DATE,
 			allowNull:false,
     },
  status: {
@@ -23,8 +24,8 @@ exitTime:{
 		allowNull: false,
 		defaultValue: 'working',
 	},
-
 })
+
 
 
 
