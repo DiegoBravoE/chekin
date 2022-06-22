@@ -20,7 +20,7 @@ const createRegister= async (req,res)=>{
 
   try { 
     const {entranceTime} = req.body;
-    const newRegister =await Register.create({
+    const newRegister = await Register.create({
     entranceTime:new Date(),
     
   })
@@ -76,7 +76,7 @@ newRegister,
       });
     }
   
-    // await user.destroy();
+    
     await register.update({ status: 'deleted' });
   
     res.status(204).json({ status: 'success' });
